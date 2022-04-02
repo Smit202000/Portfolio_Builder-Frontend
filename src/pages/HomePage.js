@@ -20,6 +20,7 @@ import ConnectWithoutContactIcon from "@mui/icons-material/ConnectWithoutContact
 import WorkIcon from "@mui/icons-material/Work";
 
 import React, { useState } from "react";
+import PortfolioForm from "../components/PortfolioForm/PortfolioForm";
 
 const HomePage = () => {
 	const [open, setOpen] = useState(false);
@@ -70,7 +71,9 @@ const HomePage = () => {
 						</Toolbar>
 					</AppBar>
 				</Box>
-				<Box flex={10} px={2} overflow={"scroll"}></Box>
+				<Box flex={10} px={2} overflow={"scroll"}>
+					<PortfolioForm />
+				</Box>
 				<Box
 					flex={1}
 					display={"flex"}

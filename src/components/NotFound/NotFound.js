@@ -1,7 +1,6 @@
 import { Box, Typography } from "@mui/material";
 import React from "react";
 import NotFoundLogo from "../../assets/404.svg";
-import "./NotFound.css";
 
 const NotFound = () => {
 	return (

@@ -133,10 +133,9 @@ export const updateUserProfileAsync = createAsyncThunk(
 // builder.addCase(getTodosAsyncThunk.pending, (state) => {
 // 	state.isLoading = true;
 // });
-export const { reducer } = createSlice({
+const userSlice = createSlice({
 	name: "userData",
 	initialState,
-	reducers: {},
 	extraReducers: (builder) => {
 		builder.addCase(getUserDataByIdAsync.pending, (state) => {
 			state.loading = true;
@@ -144,10 +143,10 @@ export const { reducer } = createSlice({
 		builder.addCase(getUserDataByUserNameAsync.pending, (state) => {
 			state.loading = true;
 		});
-		builder.addCase(loginReq.pending, (state) => {
+		builder.addCase(loginAsync.pending, (state) => {
 			state.loading = true;
 		});
-		builder.addCase(signupReq.pending, (state) => {
+		builder.addCase(signUpAsync.pending, (state) => {
 			state.loading = true;
 		});
 		builder.addCase(deleteUserByIdAsync.pending, (state) => {
@@ -162,7 +161,6 @@ export const { reducer } = createSlice({
 		builder.addCase(updateUserPasswordAsync.pending, (state) => {
 			state.loading = true;
 		});
-
 		// failed
 		builder.addCase(getUserDataByIdAsync.rejected, (state) => {
 			state.userData = [];
@@ -173,11 +171,11 @@ export const { reducer } = createSlice({
 			state.userPortfolioData = [];
 			state.loading = false;
 		});
-		builder.addCase(loginReq.rejected, (state) => {
+		builder.addCase(loginAsync.rejected, (state) => {
 			state.isLoggedIn = false;
 			state.loading = false;
 		});
-		builder.addCase(signupReq.rejected, (state) => {
+		builder.addCase(signUpAsync.rejected, (state) => {
 			state.loading = false;
 		});
 		builder.addCase(deleteUserByIdAsync.rejected, (state) => {
@@ -192,13 +190,11 @@ export const { reducer } = createSlice({
 		builder.addCase(updateUserPasswordAsync.rejected, (state) => {
 			state.loading = false;
 		});
-
-		// success
+		// // success
 		builder.addCase(getUserDataByIdAsync.fulfilled, (state, { payload }) => {
 			state.userData = payload;
 			state.loading = false;
 		});
-
 		builder.addCase(
 			getUserDataByUserNameAsync.fulfilled,
 			(state, { payload }) => {
@@ -206,13 +202,11 @@ export const { reducer } = createSlice({
 				state.loading = false;
 			}
 		);
-
-		builder.addCase(loginReq.fulfilled, (state, { payload }) => {
+		builder.addCase(loginAsync.fulfilled, (state, { payload }) => {
 			state.isLoggedIn = payload;
 			state.loading = false;
 		});
-
-		builder.addCase(signupReq.fulfilled, (state) => {
+		builder.addCase(signUpAsync.fulfilled, (state) => {
 			state.loading = false;
 		});
 		builder.addCase(deleteUserByIdAsync.fulfilled, (state) => {
@@ -233,3 +227,5 @@ export const { reducer } = createSlice({
 		});
 	},
 });
+
+export default userSlice.reducer;

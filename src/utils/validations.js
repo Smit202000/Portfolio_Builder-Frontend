@@ -14,6 +14,8 @@ export const loginInitialValues = {
 	password: "",
 };
 
+export const portfolioInitialValues = {};
+
 export const signupValidationSchema = () => {
 	return Yup.object().shape({
 		firstName: Yup.string()

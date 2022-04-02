@@ -7,3 +7,4 @@ export { default as AuthPage } from "./AuthPage/AuthPage";
 export { default as Login } from "./Login/Login";
 export { default as Signup } from "./Signup/Signup";
 export { default as HeroIntroSection } from "./HeroIntroSection/HeroIntroSection";
+export { default as PortfolioForm } from "./PortfolioForm/PortfolioForm";

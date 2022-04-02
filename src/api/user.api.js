@@ -57,7 +57,7 @@ export const updateUserPasswordReq = async ({
 }) => {
 	const { data } = await axios.patch(
 		"/api/v1/update-password",
-		{ oldPassword, newPassword },
+		{ id, oldPassword, newPassword },
 		{
 			headers: {
 				auth: getToken(),
@@ -67,10 +67,29 @@ export const updateUserPasswordReq = async ({
 	return data;
 };
 
-export const updateUserDetailsReq = async ({}) => {};
+export const updateUserDetailsReq = async ({
+	id,
+	firstName,
+	lastName,
+	email,
+}) => {
+	const { data } = await instance.patch(
+		"api/v1/loremipsum",
+		{ id, firstName, lastName, email },
+		{ headers: { auth: getToken() } }
+	);
+	return data;
+};
 
-export const updateUserProfileReq = async ({ id, profile }) => {};
+export const updateUserProfileReq = async ({ id, profile }) => {
+	const { data } = await instance.patch(
+		"/api/fjls",
+		{ id, profile },
+		{ headers: { auth: getToken() } }
+	);
+	return data;
+};
 
-export const updateUserPortfolioReq = async ({}) => {};
+// export const updateUserPortfolioReq = async ({}) => {};
 
-export const insertPortfolioDataReq = async ({}) => {};
+// export const insertPortfolioDataReq = async ({}) => {};

@@ -4,7 +4,7 @@ import NotFoundLogo from "../../assets/404.svg";
 
 const NotFound = () => {
 	return (
-		<div className="page-container not-found">
+		<div className="page-container normal-page">
 			<Box
 				display={"flex"}
 				flexDirection={"column"}

@@ -1,20 +1,21 @@
 import React from "react";
-import { Navigate, Route, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import { AuthPage, Login, NotFound, Signup } from "./components";
+import { HomePage, PortfolioPage } from "./pages";
 import "./App.css";
 
-function App() {
+const App = () => {
 	return (
 		<Routes>
-			<Route path="/" element={<Navigate to={"/login"} />} />
+			<Route path="/" element={<HomePage />} />
 			<Route path="/auth" element={<AuthPage />}>
 				<Route path="/auth/login" element={<Login />} />
 				<Route path="/auth/signup" element={<Signup />} />
 			</Route>
-			<Route path="/portfolio/:username" element={<p>portfolio here</p>} />
+			<Route path="/portfolio/:username" element={<PortfolioPage />} />
 			<Route path="*" element={<NotFound />} />
 		</Routes>
 	);
-}
+};
 
 export default App;

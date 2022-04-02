@@ -1,8 +1,7 @@
+import React from "react";
 import { Box, Typography } from "@mui/material";
 import PortfolioIcon from "../../assets/portfolio.svg";
 import WomenSpeakingIcon from "../../assets/women-speaking.svg";
-
-import React from "react";
 
 const HeroIntroSection = () => {
 	return (

@@ -12,7 +12,6 @@ import {
 	signupInitialValues,
 	signupValidationSchema,
 } from "../../utils/validations";
-import "./Signup.css";
 
 const Signup = () => {
 	const { handleChange, handleSubmit, values, errors, touched, isSubmitting } =

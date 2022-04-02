@@ -1,5 +1,5 @@
-import { Box, Paper } from "@mui/material";
 import React from "react";
+import { Box, Paper } from "@mui/material";
 import { Outlet } from "react-router-dom";
 import HeroIntroSection from "../HeroIntroSection/HeroIntroSection";
 

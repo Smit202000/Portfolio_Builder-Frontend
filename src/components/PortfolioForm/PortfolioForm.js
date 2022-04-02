@@ -2,8 +2,12 @@ import { DatePicker, LocalizationProvider } from "@mui/lab";
 import {
 	Box,
 	Button,
+	FormControl,
+	FormControlLabel,
 	// IconButton,
 	Paper,
+	Radio,
+	RadioGroup,
 	Slider,
 	TextField,
 	Typography,
@@ -30,46 +34,6 @@ const PortfolioForm = () => {
 				variant="outlined"
 			>
 				<Box display="flex">
-					<TextField
-						value={""}
-						size={"small"}
-						variant="outlined"
-						label={"First Name"}
-						sx={{ mx: 1 }}
-						fullWidth
-						name="firstName"
-					/>
-					<TextField
-						value={""}
-						size={"small"}
-						variant="outlined"
-						label={"Last Name"}
-						sx={{ mx: 1 }}
-						fullWidth
-						name="lastName"
-					/>
-					<TextField
-						value={""}
-						size="small"
-						variant="outlined"
-						label={"Username"}
-						sx={{ mx: 1 }}
-						fullWidth
-						name="userName"
-					/>
-				</Box>
-				<br />
-				<Box display="flex">
-					<TextField
-						value={""}
-						type="email"
-						size={"small"}
-						variant="outlined"
-						label={"Email"}
-						sx={{ mx: 1 }}
-						fullWidth
-						name="email"
-					/>
 					<TextField
 						value={""}
 						type="tel"
@@ -307,7 +271,83 @@ const PortfolioForm = () => {
 				}}
 				variant="outlined"
 			>
-				<p>portfolio selections</p>
+				<Box>
+					{[0, 1, 2].map((num) => (
+						<div key={num}>
+							<Box display={"flex"}>
+								<TextField
+									value={""}
+									size={"small"}
+									variant="outlined"
+									label={"Designation"}
+									sx={{ mx: 1 }}
+									fullWidth
+								/>
+								<TextField
+									value={""}
+									type="num"
+									size="small"
+									variant="outlined"
+									label={"Experience Over Years"}
+									sx={{ mx: 1 }}
+									fullWidth
+								/>
+							</Box>
+							<br />
+							<Box display="flex">
+								<TextField
+									value={""}
+									label="Description"
+									multiline
+									fullWidth
+									rows={5}
+									sx={{ mx: 1 }}
+									size="small"
+								/>
+							</Box>
+							<br />
+							<br />
+						</div>
+					))}
+				</Box>
+			</Paper>
+			<br />
+			<Paper
+				sx={{
+					p: 2,
+					display: "flex",
+					flexDirection: "column",
+				}}
+				variant="outlined"
+			>
+				<Typography color={"gray"} variant="body1">
+					Select Portfolio Template
+				</Typography>
+				<br />
+				<FormControl>
+					<RadioGroup
+						aria-labelledby="demo-radio-buttons-group-label"
+						defaultValue="1"
+						name="radio-buttons-group"
+						sx={{ display: "flex" }}
+					>
+						<FormControlLabel
+							value="1"
+							control={<Radio />}
+							label="Template 1"
+						/>
+						<FormControlLabel
+							value="2"
+							control={<Radio />}
+							label="Template 2"
+						/>
+						<FormControlLabel
+							value="3"
+							control={<Radio />}
+							label="Template 3"
+						/>
+					</RadioGroup>
+				</FormControl>
 			</Paper>
 			<br />
 			<Box display={"flex"}>

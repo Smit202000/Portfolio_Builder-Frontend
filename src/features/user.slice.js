@@ -138,6 +138,98 @@ export const { reducer } = createSlice({
 	initialState,
 	reducers: {},
 	extraReducers: (builder) => {
-		builder.addCase();
+		builder.addCase(getUserDataByIdAsync.pending, (state) => {
+			state.loading = true;
+		});
+		builder.addCase(getUserDataByUserNameAsync.pending, (state) => {
+			state.loading = true;
+		});
+		builder.addCase(loginReq.pending, (state) => {
+			state.loading = true;
+		});
+		builder.addCase(signupReq.pending, (state) => {
+			state.loading = true;
+		});
+		builder.addCase(deleteUserByIdAsync.pending, (state) => {
+			state.loading = true;
+		});
+		builder.addCase(updateUserDetailsAsync.pending, (state) => {
+			state.loading = true;
+		});
+		builder.addCase(updateUserProfileAsync.pending, (state) => {
+			state.loading = true;
+		});
+		builder.addCase(updateUserPasswordAsync.pending, (state) => {
+			state.loading = true;
+		});
+
+		// failed
+		builder.addCase(getUserDataByIdAsync.rejected, (state) => {
+			state.userData = [];
+			state.loading = false;
+		});
+		builder.addCase(getUserDataByUserNameAsync.rejected, (state) => {
+			state.userData = [];
+			state.userPortfolioData = [];
+			state.loading = false;
+		});
+		builder.addCase(loginReq.rejected, (state) => {
+			state.isLoggedIn = false;
+			state.loading = false;
+		});
+		builder.addCase(signupReq.rejected, (state) => {
+			state.loading = false;
+		});
+		builder.addCase(deleteUserByIdAsync.rejected, (state) => {
+			state.loading = false;
+		});
+		builder.addCase(updateUserDetailsAsync.rejected, (state) => {
+			state.loading = false;
+		});
+		builder.addCase(updateUserProfileAsync.rejected, (state) => {
+			state.loading = false;
+		});
+		builder.addCase(updateUserPasswordAsync.rejected, (state) => {
+			state.loading = false;
+		});
+
+		// success
+		builder.addCase(getUserDataByIdAsync.fulfilled, (state, { payload }) => {
+			state.userData = payload;
+			state.loading = false;
+		});
+
+		builder.addCase(
+			getUserDataByUserNameAsync.fulfilled,
+			(state, { payload }) => {
+				state.userPortfolioData = payload;
+				state.loading = false;
+			}
+		);
+
+		builder.addCase(loginReq.fulfilled, (state, { payload }) => {
+			state.isLoggedIn = payload;
+			state.loading = false;
+		});
+
+		builder.addCase(signupReq.fulfilled, (state) => {
+			state.loading = false;
+		});
+		builder.addCase(deleteUserByIdAsync.fulfilled, (state) => {
+			state.userData = [];
+			state.userPortfolioData = [];
+			state.loading = false;
+		});
+		builder.addCase(updateUserDetailsAsync.fulfilled, (state, { payload }) => {
+			state.userData = payload.userData;
+			state.userPortfolioData = payload.userPortfolioData;
+			state.loading = false;
+		});
+		builder.addCase(updateUserProfileAsync.fulfilled, (state) => {
+			state.loading = false;
+		});
+		builder.addCase(updateUserPasswordAsync.fulfilled, (state) => {
+			state.loading = false;
+		});
 	},
 });

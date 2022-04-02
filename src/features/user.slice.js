@@ -130,9 +130,7 @@ export const updateUserProfileAsync = createAsyncThunk(
 		}
 	}
 );
-// builder.addCase(getTodosAsyncThunk.pending, (state) => {
-// 	state.isLoading = true;
-// });
+
 const userSlice = createSlice({
 	name: "userData",
 	initialState,

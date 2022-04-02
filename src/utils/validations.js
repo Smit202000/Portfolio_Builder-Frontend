@@ -1,4 +1,5 @@
 import * as Yup from "yup";
+import "yup-phone";
 
 export const signupInitialValues = {
 	firstName: "",
@@ -14,7 +15,56 @@ export const loginInitialValues = {
 	password: "",
 };
 
-export const portfolioInitialValues = {};
+export const portfolioInitialValues = {
+	contact: Yup.string().phone("IN").required("Required Field"),
+	ssc: Yup.string().trim().lowercase().required("Required Field"),
+	sscScore: Yup.string().trim().lowercase().required("Required Field"),
+	sscFrom: Yup.string().required("Required Field"),
+	sscTo: Yup.string().required("Required Field"),
+	hsc: Yup.string().trim().lowercase().required("Required Field"),
+	hscScore: Yup.string().trim().lowercase().required("Required Field"),
+	hscFrom: Yup.string().required("Required Field"),
+	hscTo: Yup.string().required("Required Field"),
+	bachelor: Yup.string().trim().lowercase().required("Required Field"),
+	bachelorScore: Yup.string().trim().lowercase().required("Required Field"),
+	bachelorFrom: Yup.string().required("Required Field"),
+	bachelorTo: Yup.string().required("Required Field"),
+	skill1Name: Yup.string().required("Required Field"),
+	skill1Range: Yup.string().required("Required Field"),
+	skill2Name: Yup.string().required("Required Field"),
+	skill2Range: Yup.string().required("Required Field"),
+	skill3Name: Yup.string().required("Required Field"),
+	skill3Range: Yup.string().required("Required Field"),
+	skill4Name: Yup.string().required("Required Field"),
+	skill4Range: Yup.string().required("Required Field"),
+	skill5Name: Yup.string().required("Required Field"),
+	skill5Range: Yup.string().required("Required Field"),
+	project1Title: Yup.string().required("Required Field"),
+	project1Description: Yup.string().required("Required Field"),
+	project2Title: Yup.string().required("Required Field"),
+	project2Description: Yup.string().required("Required Field"),
+	project3Title: Yup.string().required("Required Field"),
+	project3Description: Yup.string().required("Required Field"),
+	aboutMe: Yup.string().required("Required Field"),
+	country: Yup.string().required("Required Field"),
+	state: Yup.string().required("Required Field"),
+	city: Yup.string().required("Required Field"),
+	street: Yup.string().required("Required Field"),
+	gitLink: Yup.string().required("Required Field"),
+	fbLink: Yup.string().required("Required Field"),
+	twLink: Yup.string().required("Required Field"),
+	ldLink: Yup.string().required("Required Field"),
+	experience1Designation: Yup.string().required("Required Field"),
+	experience1Years: Yup.string().required("Required Field"),
+	experience1Description: Yup.string().required("Required Field"),
+	experience2Designation: Yup.string().required("Required Field"),
+	experience2Years: Yup.string().required("Required Field"),
+	experience2Description: Yup.string().required("Required Field"),
+	experience3Designation: Yup.string().required("Required Field"),
+	experience3Years: Yup.string().required("Required Field"),
+	experience3Description: Yup.string().required("Required Field"),
+	template: Yup.string().required("Required Field"),
+};
 
 export const signupValidationSchema = () => {
 	return Yup.object().shape({

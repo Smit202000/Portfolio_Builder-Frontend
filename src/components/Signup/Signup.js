@@ -4,9 +4,10 @@ import {
 	TextField,
 	Typography,
 	Link as MLink,
+	Avatar,
 } from "@mui/material";
 import { useFormik } from "formik";
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
 	signupInitialValues,
@@ -24,6 +25,13 @@ const Signup = () => {
 			},
 		});
 
+	const [imageUrl, setImageUrl] = useState();
+
+	const handleChangeUrl = async (file) => {
+		// await url here
+		setImageUrl(URL.createObjectURL(file));
+	};
+
 	return (
 		<Box>
 			<Typography variant="h4" align="center">
@@ -32,6 +40,22 @@ const Signup = () => {
 			<br />
 			<br />
 			<form onSubmit={handleSubmit}>
+				<Box
+					display="flex"
+					width={"100%"}
+					justifyContent={"space-between"}
+					alignItems={"center"}
+				>
+					<Avatar src={imageUrl} alt={"user-profile"} />
+					<input
+						type="file"
+						accept="image/png,image/jpg,image/jpeg"
+						onChange={(e) => {
+							handleChangeUrl(e.target.files[0]);
+						}}
+					/>
+				</Box>
+				<br />
 				<Box display="flex">
 					<TextField
 						value={values.firstName}

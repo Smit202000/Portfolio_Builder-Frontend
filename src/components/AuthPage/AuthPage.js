@@ -1,9 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Paper } from "@mui/material";
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
+import { getToken } from "../../utils/tokens";
 import HeroIntroSection from "../HeroIntroSection/HeroIntroSection";
 
 const AuthPage = () => {
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		const isAuthenticated =
+			getToken() !== "" &&
+			getToken() !== null &&
+			getToken() !== undefined &&
+			getToken() !== "undefined"
+				? true
+				: false;
+		isAuthenticated && navigate("/");
+	}, []);
+
 	return (
 		<div className="page-container">
 			<Paper sx={{ borderRadius: 1, width: 1200, height: "auto" }}>

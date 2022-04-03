@@ -21,10 +21,13 @@ import WorkIcon from "@mui/icons-material/Work";
 
 import React, { useState } from "react";
 import PortfolioForm from "../components/PortfolioForm/PortfolioForm";
+import { setToken } from "../utils/tokens";
+import { useNavigate } from "react-router-dom";
 
 const HomePage = () => {
 	const [open, setOpen] = useState(false);
-	const [anchorEl, setAnchorEl] = React.useState(null);
+	const [anchorEl, setAnchorEl] = useState(null);
+	const navigate = useNavigate();
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -35,6 +38,15 @@ const HomePage = () => {
 	};
 
 	const isPopoverOpen = Boolean(anchorEl);
+
+	const handleMenuOption = (option) => {
+		console.log(option);
+		if (option === "logout") {
+			setToken("");
+			navigate("/auth/login");
+		}
+	};
+
 	return (
 		<div className="page-container normal-page">
 			<Box
@@ -118,7 +130,13 @@ const HomePage = () => {
 				<Paper>
 					<List>
 						{["settings", "logout"].map((option) => (
-							<ListItem button key={option}>
+							<ListItem
+								key={option}
+								onClick={() => {
+									handleMenuOption(option);
+								}}
+								button
+							>
 								<ListItemText primary={option} />
 							</ListItem>
 						))}

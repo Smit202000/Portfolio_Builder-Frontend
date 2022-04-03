@@ -3,8 +3,6 @@ import {
 	deleteUserByIdReq,
 	getUserDataByIdReq,
 	getUserDataByUserNameReq,
-	loginReq,
-	signupReq,
 	updateUserDetailsReq,
 	updateUserPasswordReq,
 	updateUserProfileReq,
@@ -35,39 +33,6 @@ export const getUserDataByUserNameAsync = createAsyncThunk(
 		try {
 			const userData = await getUserDataByUserNameReq({ username });
 			return userData;
-		} catch (error) {
-			return rejectWithValue(null);
-		}
-	}
-);
-
-export const loginAsync = createAsyncThunk(
-	"userData/loginReq",
-	async ({ email, password }, { rejectWithValue }) => {
-		try {
-			const loginData = await loginReq({ email, password });
-			return loginData;
-		} catch (error) {
-			return rejectWithValue(false);
-		}
-	}
-);
-
-export const signUpAsync = createAsyncThunk(
-	"userData/signupReq",
-	async (
-		{ firstName, lastName, email, userName, password },
-		{ rejectWithValue }
-	) => {
-		try {
-			const signupData = await signupReq({
-				email,
-				firstName,
-				lastName,
-				password,
-				userName,
-			});
-			return signupData;
 		} catch (error) {
 			return rejectWithValue(null);
 		}
@@ -141,12 +106,6 @@ const userSlice = createSlice({
 		builder.addCase(getUserDataByUserNameAsync.pending, (state) => {
 			state.loading = true;
 		});
-		builder.addCase(loginAsync.pending, (state) => {
-			state.loading = true;
-		});
-		builder.addCase(signUpAsync.pending, (state) => {
-			state.loading = true;
-		});
 		builder.addCase(deleteUserByIdAsync.pending, (state) => {
 			state.loading = true;
 		});
@@ -167,13 +126,6 @@ const userSlice = createSlice({
 		builder.addCase(getUserDataByUserNameAsync.rejected, (state) => {
 			state.userData = [];
 			state.userPortfolioData = [];
-			state.loading = false;
-		});
-		builder.addCase(loginAsync.rejected, (state) => {
-			state.isLoggedIn = false;
-			state.loading = false;
-		});
-		builder.addCase(signUpAsync.rejected, (state) => {
 			state.loading = false;
 		});
 		builder.addCase(deleteUserByIdAsync.rejected, (state) => {
@@ -200,13 +152,6 @@ const userSlice = createSlice({
 				state.loading = false;
 			}
 		);
-		builder.addCase(loginAsync.fulfilled, (state, { payload }) => {
-			state.isLoggedIn = payload;
-			state.loading = false;
-		});
-		builder.addCase(signUpAsync.fulfilled, (state) => {
-			state.loading = false;
-		});
 		builder.addCase(deleteUserByIdAsync.fulfilled, (state) => {
 			state.userData = [];
 			state.userPortfolioData = [];

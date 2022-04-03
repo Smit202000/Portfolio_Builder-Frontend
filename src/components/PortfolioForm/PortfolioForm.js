@@ -22,14 +22,15 @@ import { useFormik } from "formik";
 import { portfolioInitialData, portfolioSchema } from "../../utils/validations";
 
 const PortfolioForm = () => {
-	const { handleChange, handleSubmit, values, isSubmitting } = useFormik({
-		initialValues: portfolioInitialData,
-		validationSchema: portfolioSchema,
-		onSubmit: (values, { resetForm }) => {
-			console.log(values);
-			resetForm();
-		},
-	});
+	const { handleChange, setFieldValue, handleSubmit, values, isSubmitting } =
+		useFormik({
+			initialValues: portfolioInitialData,
+			validationSchema: portfolioSchema,
+			onSubmit: (values, { resetForm }) => {
+				console.log(values);
+				resetForm();
+			},
+		});
 
 	return (
 		<Box py={2} width={"100%"}>
@@ -45,6 +46,10 @@ const PortfolioForm = () => {
 					}}
 					variant="outlined"
 				>
+					<Typography color={"gray"} variant="body1">
+						Personal Details
+					</Typography>
+					<br />
 					<Box display="flex">
 						<TextField
 							value={values.contact}
@@ -68,55 +73,273 @@ const PortfolioForm = () => {
 					}}
 					variant="outlined"
 				>
+					<Typography color={"gray"} variant="body1">
+						Education
+					</Typography>
 					{[
-						"Secondary Education",
-						"Higher Secondary Education",
-						"Bachelors Degree",
-						"Masters Degree",
-					].map((text) => (
+						"Secondary Education (SSC School)",
+						"Higher Secondary Education (HSC School)",
+						"Bachelors Degree (Bachelors College)",
+						"Masters Degree (Masters College)",
+					].map((text, index) => (
 						<div key={text}>
 							<Box display="flex">
-								<TextField
-									value={""}
-									size="small"
-									variant="outlined"
-									label={text}
-									sx={{ mx: 1, flex: 5 }}
-									fullWidth
-									name=""
-								/>
-								<TextField
-									value={""}
-									type={"number"}
-									size="small"
-									variant="outlined"
-									label="Score"
-									sx={{ mx: 1, flex: 2 }}
-									fullWidth
-								/>
+								{index === 0 && (
+									<TextField
+										value={values.ssc}
+										name={"ssc"}
+										onChange={handleChange}
+										size="small"
+										variant="outlined"
+										label={text}
+										sx={{ mx: 1, flex: 5 }}
+										fullWidth
+									/>
+								)}
+								{index === 1 && (
+									<TextField
+										value={values.hsc}
+										name={"hsc"}
+										onChange={handleChange}
+										size="small"
+										variant="outlined"
+										label={text}
+										sx={{ mx: 1, flex: 5 }}
+										fullWidth
+									/>
+								)}
+								{index === 2 && (
+									<TextField
+										value={values.bachelor}
+										name={"bachelor"}
+										onChange={handleChange}
+										size="small"
+										variant="outlined"
+										label={text}
+										sx={{ mx: 1, flex: 5 }}
+										fullWidth
+									/>
+								)}
+								{index === 3 && (
+									<TextField
+										value={values.master}
+										name={"master"}
+										onChange={handleChange}
+										size="small"
+										variant="outlined"
+										label={text}
+										sx={{ mx: 1, flex: 5 }}
+										fullWidth
+									/>
+								)}
+
+								{index === 0 && (
+									<TextField
+										value={values.sscScore}
+										name="sscScore"
+										onChange={handleChange}
+										type={"number"}
+										size="small"
+										variant="outlined"
+										label="Score"
+										sx={{ mx: 1, flex: 2 }}
+										fullWidth
+									/>
+								)}
+								{index === 1 && (
+									<TextField
+										value={values.hscScore}
+										name="hscScore"
+										onChange={handleChange}
+										type={"number"}
+										size="small"
+										variant="outlined"
+										label="Score"
+										sx={{ mx: 1, flex: 2 }}
+										fullWidth
+									/>
+								)}
+								{index === 2 && (
+									<TextField
+										value={values.bachelorScore}
+										name="bachelorScore"
+										onChange={handleChange}
+										type={"number"}
+										size="small"
+										variant="outlined"
+										label="Score"
+										sx={{ mx: 1, flex: 2 }}
+										fullWidth
+									/>
+								)}
+								{index === 3 && (
+									<TextField
+										value={values.masterScore}
+										name="masterScore"
+										onChange={handleChange}
+										type={"number"}
+										size="small"
+										variant="outlined"
+										label="Score"
+										sx={{ mx: 1, flex: 2 }}
+										fullWidth
+									/>
+								)}
 								<Box mx={1}>
-									<LocalizationProvider dateAdapter={AdapterDateFns}>
-										<DatePicker
-											label="From"
-											value={null}
-											variant="outlined"
-											renderInput={(params) => (
-												<TextField size="small" {...params} />
-											)}
-										/>
-									</LocalizationProvider>
+									{index === 0 && (
+										<LocalizationProvider dateAdapter={AdapterDateFns}>
+											<DatePicker
+												label="From"
+												value={values.sscFrom}
+												name="sscFrom"
+												onChange={(newValue) => {
+													setFieldValue(
+														"sscFrom",
+														new Date(newValue).toLocaleDateString()
+													);
+												}}
+												variant="outlined"
+												renderInput={(params) => (
+													<TextField size="small" {...params} />
+												)}
+											/>
+										</LocalizationProvider>
+									)}
+									{index === 1 && (
+										<LocalizationProvider dateAdapter={AdapterDateFns}>
+											<DatePicker
+												label="From"
+												value={values.hscFrom}
+												name="hscFrom"
+												onChange={(newValue) => {
+													setFieldValue(
+														"hscFrom",
+														new Date(newValue).toLocaleDateString()
+													);
+												}}
+												variant="outlined"
+												renderInput={(params) => (
+													<TextField size="small" {...params} />
+												)}
+											/>
+										</LocalizationProvider>
+									)}
+									{index === 2 && (
+										<LocalizationProvider dateAdapter={AdapterDateFns}>
+											<DatePicker
+												label="From"
+												value={values.bachelorFrom}
+												name="bachelorFrom"
+												onChange={(newValue) => {
+													setFieldValue(
+														"bachelorFrom",
+														new Date(newValue).toLocaleDateString()
+													);
+												}}
+												variant="outlined"
+												renderInput={(params) => (
+													<TextField size="small" {...params} />
+												)}
+											/>
+										</LocalizationProvider>
+									)}
+									{index === 3 && (
+										<LocalizationProvider dateAdapter={AdapterDateFns}>
+											<DatePicker
+												label="From"
+												value={values.masterFrom}
+												name="masterFrom"
+												onChange={(newValue) => {
+													setFieldValue(
+														"masterFrom",
+														new Date(newValue).toLocaleDateString()
+													);
+												}}
+												variant="outlined"
+												renderInput={(params) => (
+													<TextField size="small" {...params} />
+												)}
+											/>
+										</LocalizationProvider>
+									)}
 								</Box>
 								<Box mx={1}>
-									<LocalizationProvider dateAdapter={AdapterDateFns}>
-										<DatePicker
-											label="To"
-											value={null}
-											variant="outlined"
-											renderInput={(params) => (
-												<TextField size="small" {...params} />
-											)}
-										/>
-									</LocalizationProvider>
+									{index === 0 && (
+										<LocalizationProvider dateAdapter={AdapterDateFns}>
+											<DatePicker
+												label="To"
+												value={values.sscTo}
+												onChange={(newValue) => {
+													setFieldValue(
+														"sscTo",
+														new Date(newValue).toLocaleDateString()
+													);
+												}}
+												name="sscTo"
+												variant="outlined"
+												renderInput={(params) => (
+													<TextField size="small" {...params} />
+												)}
+											/>
+										</LocalizationProvider>
+									)}
+									{index === 1 && (
+										<LocalizationProvider dateAdapter={AdapterDateFns}>
+											<DatePicker
+												label="To"
+												value={values.hscTo}
+												onChange={(newValue) => {
+													setFieldValue(
+														"hscTo",
+														new Date(newValue).toLocaleDateString()
+													);
+												}}
+												name="hscTo"
+												variant="outlined"
+												renderInput={(params) => (
+													<TextField size="small" {...params} />
+												)}
+											/>
+										</LocalizationProvider>
+									)}
+									{index === 2 && (
+										<LocalizationProvider dateAdapter={AdapterDateFns}>
+											<DatePicker
+												label="To"
+												value={values.bachelorTo}
+												onChange={(newValue) => {
+													setFieldValue(
+														"bachelorTo",
+														new Date(newValue).toLocaleDateString()
+													);
+												}}
+												name="bachelorTo"
+												variant="outlined"
+												renderInput={(params) => (
+													<TextField size="small" {...params} />
+												)}
+											/>
+										</LocalizationProvider>
+									)}
+									{index === 3 && (
+										<LocalizationProvider dateAdapter={AdapterDateFns}>
+											<DatePicker
+												label="To"
+												value={values.masterTo}
+												onChange={(newValue) => {
+													setFieldValue(
+														"masterTo",
+														new Date(newValue).toLocaleDateString()
+													);
+												}}
+												name="masterTo"
+												variant="outlined"
+												renderInput={(params) => (
+													<TextField size="small" {...params} />
+												)}
+											/>
+										</LocalizationProvider>
+									)}
 								</Box>
 							</Box>
 							<br />
@@ -132,21 +355,112 @@ const PortfolioForm = () => {
 					}}
 					variant="outlined"
 				>
+					<Typography color={"gray"} variant="body1">
+						Skills
+					</Typography>
 					{[0, 1, 2, 3, 4].map((num) => (
 						<div key={num}>
 							<Box key={num} alignItems={"center"} display="flex">
-								<TextField
-									value={""}
-									sx={{ flex: 6, mx: 1 }}
-									size="small"
-									label="Enter Skill"
-								/>
-								<Slider
-									sx={{ flex: 6, mr: 1, ml: 3 }}
-									size="small"
-									defaultValue={0}
-									valueLabelDisplay="auto"
-								/>
+								{num === 0 && (
+									<>
+										<TextField
+											value={values.skill1Name}
+											name="skill1Name"
+											onChange={handleChange}
+											sx={{ flex: 6, mx: 1 }}
+											size="small"
+											label="Enter Skill"
+										/>
+										<Slider
+											value={values.skill1Range}
+											onChange={handleChange}
+											sx={{ flex: 6, mr: 1, ml: 3 }}
+											size="small"
+											name={"skill1Range"}
+											valueLabelDisplay="auto"
+										/>
+									</>
+								)}
+								{num === 1 && (
+									<>
+										<TextField
+											value={values.skill2Name}
+											name="skill2Name"
+											onChange={handleChange}
+											sx={{ flex: 6, mx: 1 }}
+											size="small"
+											label="Enter Skill"
+										/>
+										<Slider
+											value={values.skill2Range}
+											onChange={handleChange}
+											sx={{ flex: 6, mr: 1, ml: 3 }}
+											size="small"
+											name={"skill2Range"}
+											valueLabelDisplay="auto"
+										/>
+									</>
+								)}
+								{num === 2 && (
+									<>
+										<TextField
+											value={values.skill3Name}
+											name="skill3Name"
+											onChange={handleChange}
+											sx={{ flex: 6, mx: 1 }}
+											size="small"
+											label="Enter Skill"
+										/>
+										<Slider
+											value={values.skill3Range}
+											onChange={handleChange}
+											sx={{ flex: 6, mr: 1, ml: 3 }}
+											size="small"
+											name={"skill3Range"}
+											valueLabelDisplay="auto"
+										/>
+									</>
+								)}
+								{num === 3 && (
+									<>
+										<TextField
+											value={values.skill4Name}
+											name="skill4Name"
+											onChange={handleChange}
+											sx={{ flex: 6, mx: 1 }}
+											size="small"
+											label="Enter Skill"
+										/>
+										<Slider
+											value={values.skill4Range}
+											onChange={handleChange}
+											sx={{ flex: 6, mr: 1, ml: 3 }}
+											size="small"
+											name={"skill4Range"}
+											valueLabelDisplay="auto"
+										/>
+									</>
+								)}
+								{num === 4 && (
+									<>
+										<TextField
+											value={values.skill5Name}
+											name="skill5Name"
+											onChange={handleChange}
+											sx={{ flex: 6, mx: 1 }}
+											size="small"
+											label="Enter Skill"
+										/>
+										<Slider
+											value={values.skill5Range}
+											onChange={handleChange}
+											sx={{ flex: 6, mr: 1, ml: 3 }}
+											size="small"
+											name={"skill5Range"}
+											valueLabelDisplay="auto"
+										/>
+									</>
+								)}
 							</Box>
 							<br />
 						</div>
@@ -161,31 +475,100 @@ const PortfolioForm = () => {
 					}}
 					variant="outlined"
 				>
+					<Typography color={"gray"} variant="body1">
+						Project Details
+					</Typography>
 					<Box>
 						{[0, 1, 2].map((num) => (
-							<div key={num}>
-								<Box width={"100%"}>
-									<TextField
-										value={""}
-										fullWidth
-										label={"Enter Project Title"}
-										size={"small"}
-									/>
-									<br />
-									<br />
-									<br />
-									<TextField
-										value={""}
-										fullWidth
-										multiline
-										rows={5}
-										label={"Enter Project Description"}
-										size={"small"}
-									/>
-								</Box>
-								<br />
-								<br />
-							</div>
+							<>
+								{num === 0 && (
+									<div key={num}>
+										<Box width={"100%"}>
+											<TextField
+												value={values.project1Title}
+												name="project1Title"
+												onChange={handleChange}
+												fullWidth
+												label={"Enter Project Title"}
+												size={"small"}
+											/>
+											<br />
+											<br />
+											<br />
+											<TextField
+												value={values.project1Description}
+												name="project1Description"
+												onChange={handleChange}
+												fullWidth
+												multiline
+												rows={5}
+												label={"Enter Project Description"}
+												size={"small"}
+											/>
+										</Box>
+										<br />
+										<br />
+									</div>
+								)}
+								{num === 1 && (
+									<div key={num}>
+										<Box width={"100%"}>
+											<TextField
+												value={values.project2Title}
+												name="project2Title"
+												onChange={handleChange}
+												fullWidth
+												label={"Enter Project Title"}
+												size={"small"}
+											/>
+											<br />
+											<br />
+											<br />
+											<TextField
+												value={values.project2Description}
+												name="project2Description"
+												onChange={handleChange}
+												fullWidth
+												multiline
+												rows={5}
+												label={"Enter Project Description"}
+												size={"small"}
+											/>
+										</Box>
+										<br />
+										<br />
+									</div>
+								)}
+								{num === 2 && (
+									<div key={num}>
+										<Box width={"100%"}>
+											<TextField
+												value={values.project3Title}
+												name="project3Title"
+												onChange={handleChange}
+												fullWidth
+												label={"Enter Project Title"}
+												size={"small"}
+											/>
+											<br />
+											<br />
+											<br />
+											<TextField
+												value={values.project3Description}
+												name="project3Description"
+												onChange={handleChange}
+												fullWidth
+												multiline
+												rows={5}
+												label={"Enter Project Description"}
+												size={"small"}
+											/>
+										</Box>
+										<br />
+										<br />
+									</div>
+								)}
+							</>
 						))}
 					</Box>
 				</Paper>
@@ -198,6 +581,9 @@ const PortfolioForm = () => {
 					}}
 					variant="outlined"
 				>
+					<Typography color={"gray"} variant="body1">
+						About
+					</Typography>
 					<TextField
 						value={values.aboutMe}
 						label="Tell Us Little Bit About Yourself"
@@ -217,6 +603,9 @@ const PortfolioForm = () => {
 					}}
 					variant="outlined"
 				>
+					<Typography color={"gray"} variant="body1">
+						Address Details
+					</Typography>
 					<TextField
 						value={values.country}
 						name="country"
@@ -266,6 +655,9 @@ const PortfolioForm = () => {
 					}}
 					variant="outlined"
 				>
+					<Typography color={"gray"} variant="body1">
+						Social Details
+					</Typography>
 					<Box display="flex">
 						{[
 							{ icon: <LinkedInIcon />, name: "linkedIn" },
@@ -273,16 +665,64 @@ const PortfolioForm = () => {
 							{ icon: <TwitterIcon />, name: "Twitter" },
 							{ icon: <FacebookIcon />, name: "Facebook" },
 						].map((social) => (
-							<Box key={social.name} display={"flex"} width={"100%"}>
-								<TextField
-									value={""}
-									sx={{ width: "100%", mx: 1 }}
-									size="small"
-									fullWidth
-									variant={"outlined"}
-									label={`Entry ${social.name} Link`}
-								/>
-							</Box>
+							<>
+								{social.name === "linkedIn" && (
+									<Box key={social.name} display={"flex"} width={"100%"}>
+										<TextField
+											value={values.ldLink}
+											name="ldLink"
+											onChange={handleChange}
+											sx={{ width: "100%", mx: 1 }}
+											size="small"
+											fullWidth
+											variant={"outlined"}
+											label={`Entry ${social.name} Link`}
+										/>
+									</Box>
+								)}
+								{social.name === "Github" && (
+									<Box key={social.name} display={"flex"} width={"100%"}>
+										<TextField
+											value={values.gitLink}
+											name="gitLink"
+											onChange={handleChange}
+											sx={{ width: "100%", mx: 1 }}
+											size="small"
+											fullWidth
+											variant={"outlined"}
+											label={`Entry ${social.name} Link`}
+										/>
+									</Box>
+								)}
+								{social.name === "Twitter" && (
+									<Box key={social.name} display={"flex"} width={"100%"}>
+										<TextField
+											value={values.twLink}
+											name="twLink"
+											onChange={handleChange}
+											sx={{ width: "100%", mx: 1 }}
+											size="small"
+											fullWidth
+											variant={"outlined"}
+											label={`Entry ${social.name} Link`}
+										/>
+									</Box>
+								)}
+								{social.name === "Facebook" && (
+									<Box key={social.name} display={"flex"} width={"100%"}>
+										<TextField
+											value={values.fbLink}
+											name="fbLink"
+											onChange={handleChange}
+											sx={{ width: "100%", mx: 1 }}
+											size="small"
+											fullWidth
+											variant={"outlined"}
+											label={`Entry ${social.name} Link`}
+										/>
+									</Box>
+								)}
+							</>
 						))}
 					</Box>
 				</Paper>
@@ -295,43 +735,142 @@ const PortfolioForm = () => {
 					}}
 					variant="outlined"
 				>
+					<Typography color={"gray"} variant="body1">
+						Experience Details
+					</Typography>
 					<Box>
 						{[0, 1, 2].map((num) => (
-							<div key={num}>
-								<Box display={"flex"}>
-									<TextField
-										value={""}
-										size={"small"}
-										variant="outlined"
-										label={"Designation"}
-										sx={{ mx: 1 }}
-										fullWidth
-									/>
-									<TextField
-										value={""}
-										type="num"
-										size="small"
-										variant="outlined"
-										label={"Experience Over Years"}
-										sx={{ mx: 1 }}
-										fullWidth
-									/>
-								</Box>
-								<br />
-								<Box display="flex">
-									<TextField
-										value={""}
-										label="Description"
-										multiline
-										fullWidth
-										rows={5}
-										sx={{ mx: 1 }}
-										size="small"
-									/>
-								</Box>
-								<br />
-								<br />
-							</div>
+							<>
+								{num === 0 && (
+									<div key={num}>
+										<Box display={"flex"}>
+											<TextField
+												value={values.experience1Designation}
+												name="experience1Designation"
+												onChange={handleChange}
+												size={"small"}
+												variant="outlined"
+												label={"Designation"}
+												sx={{ mx: 1 }}
+												fullWidth
+											/>
+											<TextField
+												value={values.experience1Years}
+												name="experience1Years"
+												onChange={handleChange}
+												type="num"
+												size="small"
+												variant="outlined"
+												label={"Experience Over Years"}
+												sx={{ mx: 1 }}
+												fullWidth
+											/>
+										</Box>
+										<br />
+										<Box display="flex">
+											<TextField
+												value={values.experience1Description}
+												name="experience1Description"
+												onChange={handleChange}
+												label="Description"
+												multiline
+												fullWidth
+												rows={5}
+												sx={{ mx: 1 }}
+												size="small"
+											/>
+										</Box>
+										<br />
+										<br />
+									</div>
+								)}
+								{num === 1 && (
+									<div key={num}>
+										<Box display={"flex"}>
+											<TextField
+												value={values.experience2Designation}
+												name="experience2Designation"
+												onChange={handleChange}
+												size={"small"}
+												variant="outlined"
+												label={"Designation"}
+												sx={{ mx: 1 }}
+												fullWidth
+											/>
+											<TextField
+												value={values.experience2Years}
+												name="experience2Years"
+												onChange={handleChange}
+												type="num"
+												size="small"
+												variant="outlined"
+												label={"Experience Over Years"}
+												sx={{ mx: 1 }}
+												fullWidth
+											/>
+										</Box>
+										<br />
+										<Box display="flex">
+											<TextField
+												value={values.experience2Description}
+												name="experience2Description"
+												onChange={handleChange}
+												label="Description"
+												multiline
+												fullWidth
+												rows={5}
+												sx={{ mx: 1 }}
+												size="small"
+											/>
+										</Box>
+										<br />
+										<br />
+									</div>
+								)}
+								{num === 2 && (
+									<div key={num}>
+										<Box display={"flex"}>
+											<TextField
+												value={values.experience3Designation}
+												name="experience3Designation"
+												onChange={handleChange}
+												size={"small"}
+												variant="outlined"
+												label={"Designation"}
+												sx={{ mx: 1 }}
+												fullWidth
+											/>
+											<TextField
+												value={values.experience3Years}
+												name="experience3Years"
+												onChange={handleChange}
+												type="num"
+												size="small"
+												variant="outlined"
+												label={"Experience Over Years"}
+												sx={{ mx: 1 }}
+												fullWidth
+											/>
+										</Box>
+										<br />
+										<Box display="flex">
+											<TextField
+												value={values.experience3Description}
+												name="experience3Description"
+												onChange={handleChange}
+												label="Description"
+												multiline
+												fullWidth
+												rows={5}
+												sx={{ mx: 1 }}
+												size="small"
+											/>
+										</Box>
+										<br />
+										<br />
+									</div>
+								)}
+							</>
 						))}
 					</Box>
 				</Paper>
@@ -350,23 +889,31 @@ const PortfolioForm = () => {
 					<br />
 					<FormControl>
 						<RadioGroup
-							aria-labelledby="demo-radio-buttons-group-label"
-							defaultValue="1"
+							value={values.template}
 							name="radio-buttons-group"
 							sx={{ display: "flex" }}
 						>
 							<FormControlLabel
 								value="1"
+								onChange={(e) => {
+									setFieldValue("template", e.target.value);
+								}}
 								control={<Radio />}
 								label="Template 1"
 							/>
 							<FormControlLabel
 								value="2"
+								onChange={(e) => {
+									setFieldValue("template", e.target.value);
+								}}
 								control={<Radio />}
 								label="Template 2"
 							/>
 							<FormControlLabel
 								value="3"
+								onChange={(e) => {
+									setFieldValue("template", e.target.value);
+								}}
 								control={<Radio />}
 								label="Template 3"
 							/>

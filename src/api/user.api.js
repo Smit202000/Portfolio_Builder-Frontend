@@ -20,7 +20,7 @@ export const imageUploader = async (formData) => {
 };
 
 export const getUserDataByUserNameReq = async ({ username }) => {
-	const { data } = await instance.get(`/api/v1/user-data/${username}`);
+	const { data } = await instance.get(`/portfolio/${username}`);
 	return data;
 };
 

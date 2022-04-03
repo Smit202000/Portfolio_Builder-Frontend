@@ -135,6 +135,7 @@ const PortfolioForm = () => {
 							city: values.city,
 							street: values.street,
 						},
+						template: values.template,
 					})
 				);
 				resetForm();
@@ -150,6 +151,7 @@ const PortfolioForm = () => {
 		projects,
 		socialMediaProfiles,
 		address,
+		template,
 	}) => {
 		return await insertPortfolioDataReq({
 			contactNumber,
@@ -160,6 +162,7 @@ const PortfolioForm = () => {
 			projects,
 			socialMediaProfiles,
 			address,
+			template,
 		});
 	};
 

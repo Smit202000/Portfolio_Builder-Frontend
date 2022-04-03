@@ -123,6 +123,7 @@ export const insertPortfolioDataReq = async ({
 	projects,
 	socialMediaProfiles,
 	address,
+	template,
 }) => {
 	try {
 		const { data } = await instance.post(
@@ -136,6 +137,7 @@ export const insertPortfolioDataReq = async ({
 				projects,
 				socialMediaProfiles,
 				address,
+				template,
 			},
 			{
 				headers: {

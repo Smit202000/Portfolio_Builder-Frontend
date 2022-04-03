@@ -1,20 +1,39 @@
 import { Box, Button, TextField, Typography } from "@mui/material";
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Link as MLink } from "@mui/material";
 import { useFormik } from "formik";
 import {
 	loginInitialValues,
 	loginValidationSchema,
 } from "../../utils/validations";
+import { loginReq } from "../../api/user.api";
+import { useSnackbar } from "notistack";
+import { setToken } from "../../utils/tokens";
 
 const Login = () => {
+	const navigate = useNavigate();
+
+	const { enqueueSnackbar } = useSnackbar();
+	const handleLogin = async ({ email, password }) => {
+		return await loginReq({ email, password });
+	};
+
 	const { handleChange, handleSubmit, values, errors, touched, isSubmitting } =
 		useFormik({
 			initialValues: loginInitialValues,
 			validationSchema: loginValidationSchema,
-			onSubmit: (values, { resetForm }) => {
-				console.log(values);
+			onSubmit: async (values, { resetForm }) => {
+				const data = await handleLogin({ ...values });
+				if (data.success) {
+					enqueueSnackbar("login success", { variant: "success" });
+					setToken(data.data.data.accessToken);
+					navigate("/");
+				} else {
+					enqueueSnackbar("invalid email/password. try again", {
+						variant: "error",
+					});
+				}
 				resetForm();
 			},
 		});
@@ -60,7 +79,7 @@ const Login = () => {
 					fullWidth
 					color="primary"
 				>
-					{isSubmitting ? "loading..." : "signup"}
+					{isSubmitting ? "loading..." : "login"}
 				</Button>
 			</form>
 			<br />

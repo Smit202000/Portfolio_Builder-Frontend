@@ -32,7 +32,7 @@ export const getUserDataByUserNameAsync = createAsyncThunk(
 	async ({ username }, { rejectWithValue }) => {
 		try {
 			const userData = await getUserDataByUserNameReq({ username });
-			return userData;
+			return userData.data;
 		} catch (error) {
 			return rejectWithValue(null);
 		}

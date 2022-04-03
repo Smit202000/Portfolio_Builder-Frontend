@@ -114,6 +114,37 @@ export const updateUserProfileReq = async ({ id, profile }) => {
 	return data;
 };
 
-// export const updateUserPortfolioReq = async ({}) => {};
-
-// export const insertPortfolioDataReq = async ({}) => {};
+export const insertPortfolioDataReq = async ({
+	contactNumber,
+	about,
+	educationDetails,
+	experienceDetails,
+	skills,
+	projects,
+	socialMediaProfiles,
+	address,
+}) => {
+	try {
+		const { data } = await instance.post(
+			"/portfolio",
+			{
+				contactNumber,
+				about,
+				educationDetails,
+				experienceDetails,
+				skills,
+				projects,
+				socialMediaProfiles,
+				address,
+			},
+			{
+				headers: {
+					Authorization: "Bearer " + getToken(),
+				},
+			}
+		);
+		return { success: true, data };
+	} catch (error) {
+		return { success: false, error: JSON.stringify(error) };
+	}
+};

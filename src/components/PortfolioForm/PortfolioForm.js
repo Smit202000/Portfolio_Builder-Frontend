@@ -20,17 +20,148 @@ import GitHubIcon from "@mui/icons-material/GitHub";
 import React from "react";
 import { useFormik } from "formik";
 import { portfolioInitialData, portfolioSchema } from "../../utils/validations";
+import { insertPortfolioDataReq } from "../../api/user.api";
 
 const PortfolioForm = () => {
 	const { handleChange, setFieldValue, handleSubmit, values, isSubmitting } =
 		useFormik({
 			initialValues: portfolioInitialData,
 			validationSchema: portfolioSchema,
-			onSubmit: (values, { resetForm }) => {
-				console.log(values);
+			onSubmit: async (values, { resetForm }) => {
+				console.log(
+					await handleSubmitData({
+						contactNumber: values.contact,
+						about: values.aboutMe,
+						educationDetails: [
+							{
+								title: values.ssc,
+								score: values.sscScore,
+								from: values.sscFrom,
+								to: values.sscTo,
+							},
+							{
+								title: values.hsc,
+								score: values.hscScore,
+								from: values.hscFrom,
+								to: values.hscTo,
+							},
+							{
+								title: values.bachelor,
+								score: values.bachelorScore,
+								from: values.bachelorFrom,
+								to: values.bachelorTo,
+							},
+							{
+								title: values.master,
+								score: values.masterScore,
+								from: values.masterFrom,
+								to: values.masterTo,
+							},
+						],
+						experienceDetails: [
+							{
+								designation: values.experience1Designation,
+								years: values.experience1Years,
+								description: values.project1Description,
+							},
+							{
+								designation: values.experience2Designation,
+								years: values.experience2Years,
+								description: values.project2Description,
+							},
+							{
+								designation: values.experience3Designation,
+								years: values.experience3Years,
+								description: values.project3Description,
+							},
+						],
+						skills: [
+							{
+								name: values.skill1Name,
+								range: values.skill1Range,
+							},
+							{
+								name: values.skill2Name,
+								range: values.skill2Range,
+							},
+							{
+								name: values.skill3Name,
+								range: values.skill3Range,
+							},
+							{
+								name: values.skill4Name,
+								range: values.skill4Range,
+							},
+							{
+								name: values.skill5Name,
+								range: values.skill5Range,
+							},
+						],
+						projects: [
+							{
+								title: values.project1Title,
+								description: values.project1Description,
+							},
+							{
+								title: values.project2Title,
+								description: values.project2Description,
+							},
+							{
+								title: values.project3Title,
+								description: values.project3Description,
+							},
+						],
+						socialMediaProfiles: [
+							{
+								type: "facebook",
+								link: values.fbLink,
+							},
+							{
+								type: "twitter",
+								link: values.twLink,
+							},
+							{
+								type: "linkedIn",
+								link: values.ldLink,
+							},
+							{
+								type: "Github",
+								link: values.gitLink,
+							},
+						],
+						address: {
+							country: values.country,
+							state: values.state,
+							city: values.city,
+							street: values.street,
+						},
+					})
+				);
 				resetForm();
 			},
 		});
+
+	const handleSubmitData = async ({
+		contactNumber,
+		about,
+		educationDetails,
+		experienceDetails,
+		skills,
+		projects,
+		socialMediaProfiles,
+		address,
+	}) => {
+		return await insertPortfolioDataReq({
+			contactNumber,
+			about,
+			educationDetails,
+			experienceDetails,
+			skills,
+			projects,
+			socialMediaProfiles,
+			address,
+		});
+	};
 
 	return (
 		<Box py={2} width={"100%"}>

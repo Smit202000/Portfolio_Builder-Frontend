@@ -7,29 +7,80 @@ import {
 	Avatar,
 } from "@mui/material";
 import { useFormik } from "formik";
+import { useSnackbar } from "notistack";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { imageUploader, signupReq } from "../../api/user.api";
 import {
 	signupInitialValues,
 	signupValidationSchema,
 } from "../../utils/validations";
 
 const Signup = () => {
+	const { enqueueSnackbar } = useSnackbar();
+	const naviate = useNavigate();
+	const handleSignup = async ({
+		email,
+		firstName,
+		lastName,
+		userName,
+		password,
+		image,
+	}) => {
+		return await signupReq({
+			email,
+			firstName,
+			image,
+			lastName,
+			password,
+			userName,
+		});
+	};
+
 	const { handleChange, handleSubmit, values, errors, touched, isSubmitting } =
 		useFormik({
 			initialValues: signupInitialValues,
 			validationSchema: signupValidationSchema,
-			onSubmit: (values, { resetForm }) => {
-				console.log(values);
+			onSubmit: async (values, { resetForm }) => {
+				if (imageUrl === "" || imageUrl === null) {
+					enqueueSnackbar("please upload image", { variant: "error" });
+				} else {
+					const data = await handleSignup({
+						image: imageUrl,
+						firstName: values.firstName,
+						lastName: values.lastName,
+						email: values.email,
+						password: values.password,
+						userName: values.userName,
+					});
+					if (data.success) {
+						enqueueSnackbar("signup successfull!", { variant: "success" });
+						naviate("/auth/login");
+					} else {
+						enqueueSnackbar("signup failed, try again later");
+					}
+				}
 				resetForm();
 			},
 		});
 
 	const [imageUrl, setImageUrl] = useState();
+	const [isImageUploading, setIsImageUploading] = useState(false);
 
 	const handleChangeUrl = async (file) => {
 		// await url here
-		setImageUrl(URL.createObjectURL(file));
+		setIsImageUploading(true);
+		const formData = new FormData();
+		formData.append("image", file);
+		const data = await imageUploader(formData);
+		if (data.success) {
+			setImageUrl(data.data.data.image);
+		} else {
+			enqueueSnackbar("image upload failed! try again later", {
+				variant: "error",
+			});
+		}
+		setIsImageUploading(false);
 	};
 
 	return (
@@ -49,6 +100,7 @@ const Signup = () => {
 					<Avatar src={imageUrl} alt={"user-profile"} />
 					<input
 						type="file"
+						disabled={isImageUploading}
 						accept="image/png,image/jpg,image/jpeg"
 						onChange={(e) => {
 							handleChangeUrl(e.target.files[0]);

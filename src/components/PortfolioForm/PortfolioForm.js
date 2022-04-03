@@ -28,6 +28,7 @@ const PortfolioForm = () => {
 			initialValues: portfolioInitialData,
 			validationSchema: portfolioSchema,
 			onSubmit: async (values, { resetForm }) => {
+				console.log(values);
 				console.log(
 					await handleSubmitData({
 						contactNumber: values.contact,

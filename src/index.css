@@ -1,5 +1,9 @@
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700;900&display=swap");
 
+:root {
+	--bg-color: #dfe6e9;
+}
+
 * {
 	padding: 0;
 	margin: 0;
@@ -9,7 +13,15 @@
 body {
 	width: 100%;
 	height: 100vh;
+	background: #43cea2;
+	background: -webkit-linear-gradient(to right, #185a9d, #43cea2);
+	background: linear-gradient(to right, #185a9d, #43cea2);
 	font-family: "Roboto", sans-serif;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
+}
+
+*::-webkit-scrollbar {
+	display: none;
+	scrollbar-width: 0;
 }

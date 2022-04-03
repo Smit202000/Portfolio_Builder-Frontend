@@ -2,8 +2,22 @@ import axios from "axios";
 import { getToken } from "../utils/tokens";
 
 const instance = axios.create({
-	baseURL: "",
+	baseURL: "https://portfoliobuilder-by-aavishkar.herokuapp.com",
 });
+
+export const imageUploader = async (formData) => {
+	try {
+		const { data } = await instance.post("/upload-image", formData, {
+			"Content-Type": "multipart/form-data",
+		});
+		return { success: true, data };
+	} catch (error) {
+		return {
+			success: false,
+			error: JSON.stringify(error),
+		};
+	}
+};
 
 export const getUserDataByUserNameReq = async ({ username }) => {
 	const { data } = await instance.get(`/api/v1/user-data/${username}`);
@@ -11,8 +25,12 @@ export const getUserDataByUserNameReq = async ({ username }) => {
 };
 
 export const loginReq = async ({ email, password }) => {
-	const { data } = await instance.post("/api/v1/login", { email, password });
-	return data;
+	try {
+		const { data } = await instance.post("/user/login", { email, password });
+		return { success: true, data };
+	} catch (error) {
+		return { success: false, error };
+	}
 };
 
 export const signupReq = async ({
@@ -21,15 +39,21 @@ export const signupReq = async ({
 	email,
 	userName,
 	password,
+	image,
 }) => {
-	const { data } = await instance.post("/api/v1/signup", {
-		firstName,
-		lastName,
-		email,
-		password,
-		userName,
-	});
-	return data;
+	try {
+		const { data } = await instance.post("/user/signup", {
+			firstName,
+			lastName,
+			email,
+			password,
+			userName,
+			image,
+		});
+		return { success: true, data };
+	} catch (error) {
+		return { success: false, error: JSON.stringify(error) };
+	}
 };
 
 export const getUserDataByIdReq = async ({ id }) => {

@@ -10,9 +10,12 @@ import {
 import { loginReq } from "../../api/user.api";
 import { useSnackbar } from "notistack";
 import { setToken } from "../../utils/tokens";
+import { useDispatch } from "react-redux";
+import { setLoginData } from "../../features/user.slice";
 
 const Login = () => {
 	const navigate = useNavigate();
+	const dispatch = useDispatch();
 
 	const { enqueueSnackbar } = useSnackbar();
 	const handleLogin = async ({ email, password }) => {
@@ -27,6 +30,7 @@ const Login = () => {
 				const data = await handleLogin({ ...values });
 				if (data.success) {
 					enqueueSnackbar("login success", { variant: "success" });
+					dispatch(setLoginData(data.data.data.user));
 					setToken(data.data.data.accessToken);
 					navigate("/");
 				} else {

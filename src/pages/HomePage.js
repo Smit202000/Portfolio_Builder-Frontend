@@ -23,11 +23,13 @@ import React, { useState } from "react";
 import PortfolioForm from "../components/PortfolioForm/PortfolioForm";
 import { setToken } from "../utils/tokens";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
 	const [open, setOpen] = useState(false);
 	const [anchorEl, setAnchorEl] = useState(null);
 	const navigate = useNavigate();
+	const { loading, userData } = useSelector((state) => state.user);
 
 	const handleClick = (event) => {
 		setAnchorEl(event.currentTarget);
@@ -46,6 +48,10 @@ const HomePage = () => {
 			navigate("/auth/login");
 		}
 	};
+
+	if (loading) {
+		return <p>loading...</p>;
+	}
 
 	return (
 		<div className="page-container normal-page">
@@ -76,10 +82,7 @@ const HomePage = () => {
 							<Button sx={{ mr: 4 }} disabled color="error" variant="contained">
 								Visit site
 							</Button>
-							<Avatar
-								onClick={handleClick}
-								src={"https://randomuser.me/api/portraits/men/62.jpg"}
-							/>
+							<Avatar onClick={handleClick} src={userData?.image} />
 						</Toolbar>
 					</AppBar>
 				</Box>

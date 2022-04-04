@@ -1,5 +1,5 @@
 # Portfolio Maker
-
+# PPT LINK: [link](https://www.canva.com/design/DAE86YImX7Q/BoanfS2PYm5gDr3aDy4vxA/edit?utm_content=DAE86YImX7Q&utm_campaign=designshare&utm_medium=link2&utm_source=sharebutton#2)
 ## Steps to run the project 
 - cd portfolio_builder_frontend
 - npm i
